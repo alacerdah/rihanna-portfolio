@@ -45,6 +45,15 @@
       transform: translateX(-50%);
     }
   }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
   @keyframes pulse-ring {
     0%,
     100% {
@@ -66,6 +75,10 @@
 
   .animate-pulse-ring {
     animation: pulse-ring 2.2s ease-out infinite;
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
   }
 
   .nav-link {
@@ -123,7 +136,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .marquee-track,
-    .animate-pulse-ring {
+    .animate-pulse-ring,
+    .animate-float {
       animation: none !important;
     }
   }

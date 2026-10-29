@@ -14,7 +14,7 @@ export default function Fotos() {
       <div className="mx-auto max-w-6xl">
         <span className="text-[13px] font-bold tracking-[0.2em] text-gold-deep">GALERIA</span>
         <h2 className="mt-2.5 mb-7 text-[34px] text-ink">Fotos</h2>
-        <div className="grid grid-cols-4 auto-rows-[140px] gap-4">
+        <div className="grid grid-cols-2 auto-rows-[120px] gap-3 sm:grid-cols-4 sm:auto-rows-[140px] sm:gap-4">
           {items.map((item) => (
             <div key={item.src} className={`media-card overflow-hidden rounded-[22px] ${item.span}`}>
               <img src={item.src} alt="" className="media-card-img h-full w-full object-cover transition-transform duration-400" />

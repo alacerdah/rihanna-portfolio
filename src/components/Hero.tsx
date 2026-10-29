@@ -1,4 +1,4 @@
-import { creator } from '../data/content'
+import { creator, creatorFullName } from '../data/content'
 
 export default function Hero() {
   return (
@@ -7,7 +7,7 @@ export default function Hero() {
         <div className="relative min-w-[300px] flex-1 basis-[380px]">
           <img
             src="/images/sections/capa.jpg"
-            alt={`${creator.firstName} ${creator.lastName}`}
+            alt={creatorFullName}
             className="aspect-[4/5] w-full rounded-[20px] object-cover"
           />
           <div className="card-tilt absolute -right-4 -bottom-4 flex items-center gap-2 rounded-2xl bg-gold px-4.5 py-3 text-[13px] font-bold text-ink shadow-[0_10px_24px_rgba(23,24,26,.18)]">
@@ -17,7 +17,7 @@ export default function Hero() {
         </div>
 
         <div className="min-w-[300px] flex-1 basis-[420px]">
-          <h1 className="text-[56px] leading-[1.05] font-bold text-ink">{creator.headline}</h1>
+          <h1 className="text-[34px] leading-[1.1] font-bold text-ink sm:text-[44px] lg:text-[56px] lg:leading-[1.05]">{creator.headline}</h1>
           <p className="mt-5.5 mb-8 max-w-[480px] text-lg leading-relaxed text-ink/70">{creator.subheadline}</p>
           <div className="flex flex-wrap gap-3.5">
             <a

@@ -2,8 +2,8 @@
 // listas abaixo pelo conteúdo real de cada cliente que usar este template.
 
 export const creator = {
-  firstName: 'Nome',
-  lastName: 'Sobrenome',
+  firstName: 'Rihanna',
+  lastName: '',
   tagline: 'UGC PORTFOLIO',
   headline: 'Conteúdo autêntico que faz a sua marca parecer gente.',
   subheadline:
@@ -11,6 +11,8 @@ export const creator = {
   bio: '[Parágrafo curto contando sua história: há quanto tempo cria conteúdo, o que te diferencia e por que marcas confiam no seu olhar. Dois ou três frases, tom de conversa.]',
   email: 'seuemail@exemplo.com',
 }
+
+export const creatorFullName = [creator.firstName, creator.lastName].filter(Boolean).join(' ')
 
 export const nav = [
   { href: '#sobre', label: 'Sobre' },

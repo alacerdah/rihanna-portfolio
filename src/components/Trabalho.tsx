@@ -10,7 +10,7 @@ export default function Trabalho() {
         <h2 className="mt-2.5 mb-11 text-[34px] text-ink">Como eu trabalho</h2>
 
         <div className="relative flex flex-wrap justify-between gap-6">
-          <div className="absolute top-[27px] left-[54px] right-[54px] h-0.5 bg-[repeating-linear-gradient(90deg,rgba(23,24,26,.2)_0_10px,transparent_10px_20px)]" />
+          <div className="absolute top-[27px] left-[54px] right-[54px] hidden h-0.5 bg-[repeating-linear-gradient(90deg,rgba(23,24,26,.2)_0_10px,transparent_10px_20px)] sm:block" />
           {steps.map((step, i) => (
             <div key={step.title} className="min-w-[180px] flex-1 basis-[200px] text-center">
               <div className={`relative z-10 mx-auto mb-4 flex size-[54px] items-center justify-center rounded-full text-xl font-bold text-ink ${colors[i]}`}>

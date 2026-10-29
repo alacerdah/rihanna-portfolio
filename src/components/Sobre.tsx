@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { creator, niches, whyList } from '../data/content'
+import { creator, creatorFullName, niches, whyList } from '../data/content'
 
 const polaroids = [
   { src: '/images/sections/about1.jpg', r: '-9deg', top: 0, left: 0 },
@@ -43,19 +43,26 @@ export default function Sobre() {
       </div>
 
       <div className="w-full bg-blue py-11">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-10 px-6 sm:px-10">
-          <div className="min-w-[260px] flex-1 basis-[320px]">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-10 px-6 text-center sm:px-10">
+          <div className="flex-none">
             <span className="text-[13px] font-bold tracking-[0.2em] text-ink">NICHOS &amp; SERVIÇOS</span>
-            <div className="mt-4 flex flex-col items-start gap-2.5">
+            <div className="mt-4 flex flex-col items-center gap-2.5">
               {niches.map((n) => (
-                <span key={n} className="inline-block rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-bg">
+                <span
+                  key={n}
+                  className="inline-block rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-bg transition hover:-translate-y-1 hover:bg-gold-deep"
+                >
                   {n}
                 </span>
               ))}
             </div>
           </div>
-          <div className="min-w-[200px] max-w-[280px] flex-1 basis-[220px]">
-            <img src="/images/sections/nicho.jpg" alt="Nichos de atuação" className="aspect-[4/5] w-full rounded-[20px] object-cover" />
+          <div className="flex flex-none items-center justify-center">
+            <img
+              src="/images/sections/nicho-cutout.webp"
+              alt={creatorFullName}
+              className="animate-float max-h-[600px] w-auto object-contain"
+            />
           </div>
         </div>
       </div>
