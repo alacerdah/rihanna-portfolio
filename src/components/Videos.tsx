@@ -1,4 +1,5 @@
-import { videos } from '../data/content'
+import { videos as staticVideos } from '../data/content'
+import type { ApiNiche } from '../shared/videos-api'
 
 const gradients = [
   'from-ink to-blue-deep',
@@ -8,7 +9,26 @@ const gradients = [
   'from-blue-deep to-ink',
 ]
 
-export default function Videos() {
+type Card = { key: string; client: string; tag: string; url?: string }
+
+// nichos vêm do admin (ugc-admin) já ordenados; achata em uma lista só pro carrossel.
+// Sem dado do admin ainda (null/undefined ou sem nenhum vídeo), cai no conteúdo estático.
+function cardsFrom(niches: ApiNiche[] | null | undefined): Card[] {
+  const fromApi = (niches ?? []).flatMap((niche) =>
+    niche.videos.map((v) => ({
+      key: v.id,
+      client: v.title || niche.name,
+      tag: v.tag || v.platform,
+      url: v.url,
+    })),
+  )
+  if (fromApi.length > 0) return fromApi
+  return staticVideos.map((v, i) => ({ key: `${v.client}-${i}`, client: v.client, tag: v.tag }))
+}
+
+export default function Videos({ niches }: { niches?: ApiNiche[] | null }) {
+  const cards = cardsFrom(niches)
+
   return (
     <section id="videos" className="w-full bg-white px-6 py-20 sm:px-10">
       <div className="mx-auto max-w-6xl">
@@ -16,17 +36,26 @@ export default function Videos() {
         <h2 className="mt-2.5 mb-7 text-[34px] text-ink">Vídeos &amp; conceitos pra feed</h2>
 
         <div className="hscroll flex gap-5.5 overflow-x-auto pb-4.5 [scroll-snap-type:x_mandatory]">
-          {videos.map((v, i) => (
-            <div key={v.client + i} className="media-card w-[220px] flex-none rounded-[22px] bg-bg p-2.5 [scroll-snap-align:start]">
-              <div
-                className={`media-card-img flex aspect-[9/16] items-center justify-center rounded-[20px] bg-gradient-to-br ${gradients[i % gradients.length]} text-sm font-semibold text-white/85 transition-transform duration-400`}
-              >
-                [ vídeo ]
+          {cards.map((v, i) => {
+            const Card = (
+              <div className="media-card w-[220px] flex-none rounded-[22px] bg-bg p-2.5 [scroll-snap-align:start]">
+                <div
+                  className={`media-card-img flex aspect-[9/16] items-center justify-center rounded-[20px] bg-gradient-to-br ${gradients[i % gradients.length]} text-sm font-semibold text-white/85 transition-transform duration-400`}
+                >
+                  [ vídeo ]
+                </div>
+                <p className="mt-2.5 mb-0.5 ml-1 text-[13px] font-semibold text-ink">{v.client}</p>
+                <p className="ml-1 text-xs text-ink/55">{v.tag}</p>
               </div>
-              <p className="mt-2.5 mb-0.5 ml-1 text-[13px] font-semibold text-ink">{v.client}</p>
-              <p className="ml-1 text-xs text-ink/55">{v.tag}</p>
-            </div>
-          ))}
+            )
+            return v.url ? (
+              <a key={v.key} href={v.url} target="_blank" rel="noopener noreferrer">
+                {Card}
+              </a>
+            ) : (
+              <div key={v.key}>{Card}</div>
+            )
+          })}
         </div>
         <p className="-mt-1 text-[13px] text-ink/50">arraste pro lado pra ver mais →</p>
       </div>

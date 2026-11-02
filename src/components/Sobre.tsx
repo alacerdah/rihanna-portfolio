@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
-import { creator, creatorFullName, niches, whyList } from '../data/content'
+import { creator, creatorFullName, niches as staticNiches, whyList } from '../data/content'
+import type { ApiNiche } from '../shared/videos-api'
 
 const polaroids = [
   { src: '/images/sections/about1.jpg', r: '-9deg', top: 0, left: 0 },
@@ -7,7 +8,10 @@ const polaroids = [
   { src: '/images/sections/about3.jpg', r: '-4deg', top: 160, left: 46 },
 ]
 
-export default function Sobre() {
+export default function Sobre({ niches: apiNiches }: { niches?: ApiNiche[] | null }) {
+  // nomes dos nichos vêm do admin quando configurados; sem isso, usa a lista estática do template
+  const niches = apiNiches && apiNiches.length > 0 ? apiNiches.map((n) => n.name) : staticNiches
+
   return (
     <section id="sobre" className="w-full bg-ink">
       <div className="mx-auto flex max-w-6xl flex-wrap items-start gap-14 px-6 pt-18 pb-18 sm:px-10">
