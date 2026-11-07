@@ -7,20 +7,20 @@ import Nav from './components/Nav'
 import Sobre from './components/Sobre'
 import Trabalho from './components/Trabalho'
 import Videos from './components/Videos'
-import { useProjectNiches } from './hooks/useProjectNiches'
+import { useProjectContent } from './hooks/useProjectContent'
 
 export default function App() {
-  // busca uma vez aqui e passa pros dois componentes que usam nicho/vídeo,
+  // busca uma vez aqui e passa pros componentes que usam nicho/vídeo/galeria,
   // em vez de cada um buscar por conta própria
-  const niches = useProjectNiches()
+  const apiContent = useProjectContent()
 
   return (
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
       <Nav />
       <Hero />
-      <Sobre niches={niches} />
-      <Videos niches={niches} />
-      <Fotos />
+      <Sobre niches={apiContent?.niches} />
+      <Videos niches={apiContent?.niches} />
+      <Fotos apiGallery={apiContent?.gallery} />
       <Trabalho />
       <Marcas />
       <Cases />

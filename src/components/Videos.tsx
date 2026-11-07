@@ -1,5 +1,6 @@
 import { videos as staticVideos } from '../data/content'
 import type { ApiNiche } from '../shared/videos-api'
+import SocialEmbed from './SocialEmbed'
 
 const gradients = [
   'from-ink to-blue-deep',
@@ -9,7 +10,7 @@ const gradients = [
   'from-blue-deep to-ink',
 ]
 
-type Card = { key: string; client: string; tag: string; url?: string }
+type Card = { key: string; client: string; tag: string; url?: string; platform?: string }
 
 // nichos vêm do admin (ugc-admin) já ordenados; achata em uma lista só pro carrossel.
 // Sem dado do admin ainda (null/undefined ou sem nenhum vídeo), cai no conteúdo estático.
@@ -20,6 +21,7 @@ function cardsFrom(niches: ApiNiche[] | null | undefined): Card[] {
       client: v.title || niche.name,
       tag: v.tag || v.platform,
       url: v.url,
+      platform: v.platform,
     })),
   )
   if (fromApi.length > 0) return fromApi
@@ -37,6 +39,13 @@ export default function Videos({ niches }: { niches?: ApiNiche[] | null }) {
 
         <div className="hscroll flex gap-5.5 overflow-x-auto pb-4.5 [scroll-snap-type:x_mandatory]">
           {cards.map((v, i) => {
+            if (v.url && (v.platform === 'instagram' || v.platform === 'tiktok')) {
+              return (
+                <div key={v.key} className="w-[270px] flex-none [scroll-snap-align:start]">
+                  <SocialEmbed platform={v.platform} url={v.url} />
+                </div>
+              )
+            }
             const Card = (
               <div className="media-card w-[220px] flex-none rounded-[22px] bg-bg p-2.5 [scroll-snap-align:start]">
                 <div
